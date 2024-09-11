@@ -1,10 +1,10 @@
 # xctrace General Commands Manual
 
-NAME
+#### NAME
 
 <code>xctrace</code> – Record, import, export and symbolicate Instruments .trace files.
 
-SYNOPSIS
+#### SYNOPSIS
 
      xctrace [command [options]]
 
@@ -183,58 +183,62 @@ Available commands and their options:
 
      --quiet     Make terminal output less verbose
 
-SEE ALSO
+#### SEE ALSO
 
-     Instruments.app may be used to perform trace recordings in a graphical environment and may also be used to open trace
+Instruments.app may be used to perform trace recordings in a graphical environment and may also be used to open trace
      documents created by xctrace.
 
-EXAMPLES
+#### EXAMPLES
 
-     Import a logarchive file to the trace file with a unique name using a MyCustomTemplate template:
+Import a logarchive file to the trace file with a unique name using a MyCustomTemplate template:
+     
            % xctrace import --input system_logs.logarchive --template 'MyCustomTemplate'
 
-     Import a ktrace file into a new document created from the template with name MyCustomTemplate and adding the
-     instrument from /tmp/PackageToLoad.instrdst and save the resulting document as output.trace:
-           % xctrace import --input trace001.ktrace --template 'MyCustomTemplate' --package '/tmp/PackageToLoad.instrdst'
-           --output output.trace
+Import a ktrace file into a new document created from the template with name MyCustomTemplate and adding the instrument from /tmp/PackageToLoad.instrdst and save the resulting document as output.trace:
+     
+           % xctrace import --input trace001.ktrace --template 'MyCustomTemplate' --package '/tmp/PackageToLoad.instrdst' --output output.trace
 
-     Export a table of contents (toc) of the input.trace file to standard output:
+Export a table of contents (toc) of the input.trace file to standard output:
+
            % xctrace export --input input.trace --toc
 
-     Export recorded data from a table with my-table-schema schema in the first run of the input.trace file to standard
-     output:
-           % xctrace export --input input.trace --xpath
-           '/trace-toc/run[@number="1"]/data/table[@schema="my-table-schema"]'
+Export recorded data from a table with my-table-schema schema in the first run of the input.trace file to standard output:
 
-     Export UUID, binary path, load address and architecture for each binary image contained in the first run of the
-     input.trace and save as output.xml:
+           % xctrace export --input input.trace --xpath '/trace-toc/run[@number="1"]/data/table[@schema="my-table-schema"]'
+
+Export UUID, binary path, load address and architecture for each binary image contained in the first run of the input.trace and save as output.xml:
+
            % xctrace export --input input.trace --output output.xml --xpath '/trace-toc/run[@number="1"]/processes'
 
-     Export UUID, binary path, load address and architecture for each binary image used by the process named
-     my-process-name in the first run of the input.trace file to standard output:
-           % xctrace export --input input.trace --xpath
-           '/trace-toc/run[@number="1"]/processes/process[@name="my-process-name"]'
+Export UUID, binary path, load address and architecture for each binary image used by the process named my-process-name in the first run of the input.trace file to standard output:
 
-     Start recording all processes on the local Mac device using the Time Profiler template and automatically stop the
-     recording after 5s:
+           % xctrace export --input input.trace --xpath '/trace-toc/run[@number="1"]/processes/process[@name="my-process-name"]'
+
+Start recording all processes on the local Mac device using the Time Profiler template and automatically stop the recording after 5s:
+
            % xctrace record --all-processes --template 'Time Profiler' --time-limit 5s
 
-     Start a new recording by attaching to the process with name Trailblazer on the connected device Chad's iPhone using
-     the template Time Profiler:
+Start a new recording by attaching to the process with name Trailblazer on the connected device Chad's iPhone using the template Time Profiler:
+
            % xctrace record --template 'Time Profiler' --device-name 'Chad's iPhone' --attach 'Trailblazer'
 
-     Start Metal System Trace template recording on a simulator device named iPhone SE Simulator, capturing all existing
-     processes:
+Start Metal System Trace template recording on a simulator device named iPhone SE Simulator, capturing all existing processes:
+
            % xctrace record --template 'Metal System Trace' --device-name 'iPhone SE Simulator' --all-processes
 
-     Start Time Profiler template recording on a local Mac device, launching and profiling binary at /tmp/tool path with
-     arg1 arg2 arguments, output of the binary gets redirected to the standard output:
+Start Time Profiler template recording on a local Mac device, launching and profiling binary at /tmp/tool path with arg1 arg2 arguments, output of the binary gets redirected to the standard output:
+
            % xctrace record --template 'Time Profiler' --target-stdout - --launch -- /tmp/tool arg1 arg2
 
-     Symbolicate the input.trace file using debug information from a SomeLibrary.dSYM file:
+Symbolicate the input.trace file using debug information from a SomeLibrary.dSYM file:
+
            % xctrace symbolicate --input input.trace --dsym SomeLibrary.dSYM
 
-     Symbolicate the input.trace file by trying automatically locate debug information:
+Symbolicate the input.trace file by trying automatically locate debug information:
+
            % xctrace symbolicate --input input.trace
 
 macOS                                                 January 3, 2023
+
+----
+_Retrieved with <code>man xtrace</code> command on September 10, 2024._
